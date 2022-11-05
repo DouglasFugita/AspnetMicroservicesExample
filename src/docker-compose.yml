@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: dfugita
+      ME_CONFIG_BASICAUTH_PASSWORD: MongoExpress
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_URL: mongodb://catalogdb:27017
+    links:
+      - catalogdb
+    networks:
+      - mongo-compose-network
+
+  catalogdb:
+    image: mongo
+    container_name: catalogdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mongo-compose-network
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80"
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    networks:
+      - mongo-compose-network
+
+volumes:
+  mongo_data: 
+
+networks: 
+    mongo-compose-network:
+      driver: bridge
