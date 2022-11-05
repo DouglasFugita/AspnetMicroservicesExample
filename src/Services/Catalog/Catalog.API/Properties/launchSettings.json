@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
     "Catalog.API": {
       "commandName": "Project",
@@ -10,6 +11,5 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5000"
     }
-  },
-  "$schema": "https://json.schemastore.org/launchsettings.json",
+  }
 }
