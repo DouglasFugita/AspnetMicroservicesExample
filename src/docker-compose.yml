@@ -1,6 +1,17 @@
 version: '3.4'
 
 services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports: 
+      - "8080:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -69,7 +80,8 @@ services:
       - basket-network
 
 volumes:
-  mongo_data: 
+  mongo_data:
+  portainer_data:
 
 networks: 
     mongo-compose-network:
