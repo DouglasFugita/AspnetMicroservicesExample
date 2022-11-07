@@ -16,6 +16,15 @@ services:
     networks:
       - mongo-compose-network
 
+  basketdb:
+    image: redis:alpine
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - basket-network
+
   catalogdb:
     image: mongo
     container_name: catalogdb
@@ -33,19 +42,37 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
-    depends_on:
-      - catalogdb
     ports:
       - "8000:80"
+    depends_on:
+      - catalogdb
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
     networks:
       - mongo-compose-network
 
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6379"
+    ports:
+      - "8001:80"	  
+    depends_on:
+      - basketdb
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+    networks:
+      - basket-network
+
 volumes:
   mongo_data: 
 
 networks: 
     mongo-compose-network:
+      driver: bridge
+    basket-network:
       driver: bridge

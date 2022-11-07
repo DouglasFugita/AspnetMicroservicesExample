@@ -16,7 +16,7 @@ public class BasketController : ControllerBase
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
-    [HttpGet("{username}", Name = "GetBasket")]
+    [HttpGet("{userName}", Name = "GetBasket")]
     [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
     {
@@ -31,7 +31,7 @@ public class BasketController : ControllerBase
         return Ok(await _repository.UpdateBasket(basket));
     }
 
-    [HttpDelete("{username}", Name = "DeleteBasket")]
+    [HttpDelete("{userName}", Name = "DeleteBasket")]
     [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<ShoppingCart>> DeleteBasket(string userName)
     {
