@@ -27,6 +27,21 @@ services:
     networks:
       - mongo-compose-network
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    volumes:
+      - pgadmin_data:/root/.pgadmin/
+    networks:
+      - discount-network
+
+
   basketdb:
     image: redis:alpine
     container_name: basketdb
@@ -46,6 +61,22 @@ services:
       - mongo_data:/data/db
     networks:
       - mongo-compose-network
+
+  discountdb:
+    image: postgres
+    container_name: discountdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=DiscountDb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - discount-network
+
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -82,9 +113,13 @@ services:
 volumes:
   mongo_data:
   portainer_data:
+  postgres_data:
+  pgadmin_data:
 
 networks: 
     mongo-compose-network:
       driver: bridge
     basket-network:
+      driver: bridge
+    discount-network:
       driver: bridge
