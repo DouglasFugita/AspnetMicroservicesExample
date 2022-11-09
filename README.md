@@ -8,8 +8,15 @@ Este projeto utiliza como pano de fundo um e-commerce para implementar diversos 
 
 ## Catalog
 Servico responsavel por lidar com as informacoes de produto.
-- BD: MongoDB
+[x] DB: MongoDB
 
 ## Basket
 Armazenamento dos dados de carrinho de compra em Cache.
-- Cache: Redis
+[x] Cache: Redis
+
+## Discount
+Gerenciamento dos cupons de desconto.
+[x] DB: Postgres
+[x] DB Admin: PgAdmin
+[x] ORM: Dapper
+
