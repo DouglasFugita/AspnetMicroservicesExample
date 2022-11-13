@@ -34,3 +34,7 @@ Gerenciamento dos cupons de desconto.
 ## IPs:
 Portainer - http://localhost:9000/
 PgAdmin - http://localhost:5050/
+
+
+## Melhorias
+[ ]
