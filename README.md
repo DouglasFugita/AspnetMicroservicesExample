@@ -9,16 +9,19 @@ Este projeto utiliza como pano de fundo um e-commerce para implementar diversos 
 ## Catalog.API
 Servico responsavel por lidar com as informacoes de produto.
 [x] DB: MongoDB
+- IP: localhost:8000
 
 ## Basket.API
 Armazenamento dos dados de carrinho de compra em Cache.
 [x] Cache: Redis
+- IP: localhost:8001
 
 ## Discount.API
 Gerenciamento dos cupons de desconto.
 [x] DB: Postgres
 [x] DB Admin: PgAdmin
 [x] ORM: Dapper
+- IP: localhost:8002
 
 ## Fila
 [ ] RabbitMQ
@@ -27,3 +30,7 @@ Gerenciamento dos cupons de desconto.
 [ ] Polly
 [ ] Ocelot
 [ ] ELK
+
+## IPs:
+Portainer - http://localhost:9000/
+PgAdmin - http://localhost:5050/

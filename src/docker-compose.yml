@@ -110,6 +110,22 @@ services:
     networks:
       - basket-network
 
+  discount.api:
+    image: ${DOCKER_REGISTRY-}discountapi
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
+    ports:
+      - "8002:80"	  
+    depends_on:
+      - discountdb
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
+    networks:
+      - discount-network
+
 volumes:
   mongo_data:
   portainer_data:
