@@ -20,3 +20,10 @@ Gerenciamento dos cupons de desconto.
 [x] DB Admin: PgAdmin
 [x] ORM: Dapper
 
+## Fila
+[ ] RabbitMQ
+[ ] MassTransit
+
+[ ] Polly
+[ ] Ocelot
+[ ] ELK
