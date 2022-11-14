@@ -23,6 +23,9 @@ Gerenciamento dos cupons de desconto.
 [x] ORM: Dapper
 - IP: localhost:8002
 
+## Discount.gRPC
+- IP: localhost:8003
+
 ## Fila
 [ ] RabbitMQ
 [ ] MassTransit
