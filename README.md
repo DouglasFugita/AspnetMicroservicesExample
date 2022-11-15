@@ -14,25 +14,37 @@ Servico responsavel por lidar com as informacoes de produto.
 ## Basket.API
 Armazenamento dos dados de carrinho de compra em Cache.
 [x] Cache: Redis
+[ ] Consumir serviço gRPC Discount
+[ ] Publicar na fila utilizando MassTransit e RabbitMQ
 - IP: localhost:8001
 
 ## Discount.API
 Gerenciamento dos cupons de desconto.
 [x] DB: Postgres
 [x] DB Admin: PgAdmin
-[x] ORM: Dapper
 - IP: localhost:8002
 
 ## Discount.gRPC
+[x] ORM: Dapper
+[x] DB: Postgres
+[x] DB Admin: PgAdmin
+[ ] Criação de mensagens Protobuf
+
 - IP: localhost:8003
 
 ## Fila
 [ ] RabbitMQ
 [ ] MassTransit
+[ ] CloudAMQP
+
 
 [ ] Polly
 [ ] Ocelot
+
 [ ] ELK
+[ ] Serilog
+[ ] HealthChecks
+[ ] Watchdog
 
 ## IPs:
 Portainer - http://localhost:9000/
