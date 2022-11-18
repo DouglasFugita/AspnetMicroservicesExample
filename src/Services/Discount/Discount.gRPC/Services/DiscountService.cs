@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Discount.gRPC.Entities;
 using Discount.gRPC.Repositories;
+using Discount.gRPC.Protos;
 using Grpc.Core;
 
 namespace Discount.Grpc.Services;
