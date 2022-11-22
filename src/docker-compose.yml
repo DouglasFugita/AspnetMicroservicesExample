@@ -128,9 +128,19 @@ services:
 
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discountgrpc
+    container_name: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8003:80"
+    depends_on:
+      - discountdb
     build:
       context: .
       dockerfile: Services/Discount/Discount.gRPC/Dockerfile
+    networks:
+      - basket-network
+      - discount-network
 
 volumes:
   mongo_data:
