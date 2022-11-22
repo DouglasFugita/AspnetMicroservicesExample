@@ -31,6 +31,12 @@ Gerenciamento dos cupons de desconto.
 [x] Criação de mensagens Protobuf
 - IP: localhost:8003
 
+## Ordering.API
+[ ] CQRS utilizando MediatR, FluentValidation e AutoMapper
+[ ] ORM: Entity Framework
+[ ] DB: SQLServer
+[ ] Consumir da fila do RabbitMQ
+
 ## Fila
 [ ] RabbitMQ
 [ ] MassTransit
