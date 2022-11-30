@@ -77,6 +77,15 @@ services:
     networks:
       - discount-network
 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: orderdb
+    environment:
+        SA_PASSWORD: "SenhaBD965"
+        ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+        - "1433:1433"
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
