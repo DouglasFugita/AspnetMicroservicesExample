@@ -27,6 +27,9 @@ services:
     networks:
       - mongo-compose-network
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
