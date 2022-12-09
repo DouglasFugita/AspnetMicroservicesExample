@@ -31,6 +31,7 @@ services:
     image: rabbitmq:3-management-alpine
     networks:
       - basket-network
+      - ordering-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -165,7 +166,8 @@ services:
     container_name: ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=localhost;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       - "8004:80"
     depends_on:
