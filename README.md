@@ -43,7 +43,9 @@ Gerenciamento dos cupons de desconto.
 [ ] CloudAMQP
 
 ## Api Gateway
-[ ] Ocelot
+[x] Ocelot
+[x] RateLimit
+[x] Caching
 
 
 [ ] Polly
