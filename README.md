@@ -3,8 +3,8 @@
 Projeto baseado no conteudo abordado no curso Microservices Architecture and Implementation on .NET 5, que pode ser encontrado em: https://www.udemy.com/course/microservices-architecture-and-implementation-on-dotnet/
 
 O projeto foi desde o inicio implementado em .net 6.
-
 Este projeto utiliza como pano de fundo um e-commerce para implementar diversos microservicos percorrendo toda a experiencia de compra de uma loja virtual.
+Os servicos foram conteinerizados utilizando docker-compose
 
 ## Catalog.API
 Servico responsavel por lidar com as informacoes de produto.
@@ -47,6 +47,13 @@ Gerenciamento dos cupons de desconto.
 [x] RateLimit
 [x] Caching
 
+## BFF
+[x] Shopping.Aggregator - Consumindo Basket, Ordering e Catalog
+
+
+
+
+
 
 [ ] Polly
 
@@ -59,6 +66,7 @@ Gerenciamento dos cupons de desconto.
 Portainer - http://localhost:9000/
 PgAdmin - http://localhost:5050/
 ApiGateway: http://localhost:8010
+FrontEnd: http://localhost:8006
 
 
 ## Melhorias

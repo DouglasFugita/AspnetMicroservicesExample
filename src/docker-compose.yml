@@ -192,11 +192,18 @@ services:
     build:
       context: .
       dockerfile: ApiGateways/OcelotApiGw/Dockerfile
-    networks:
-      - catalog-network
-      - basket-network
-      - discount-network
-      - ordering-network
+
+  shopping.aggregator:
+    image: ${DOCKER_REGISTRY-}shoppingaggregator
+    build:
+      context: .
+      dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
+
+  aspnetrunbasics6:
+    image: ${DOCKER_REGISTRY-}aspnetrunbasics6
+    build:
+      context: .
+      dockerfile: WebApps/AspnetRunBasics6/Dockerfile
 
 volumes:
   mongo_data:
@@ -213,6 +220,10 @@ networks:
       driver: bridge
     ordering-network:
       driver: bridge
+    frontend-network:
+      driver: bridge
+
+
 
 
 

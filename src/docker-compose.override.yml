@@ -19,4 +19,48 @@ services:
         - basket.api
         - discount.api
         - ordering.api
+    networks:
+      - catalog-network
+      - basket-network
+      - discount-network
+      - ordering-network
+      - frontend-network
+
+
+  shopping.aggregator:
+    container_name: shopping.agg
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:CatalogUrl=http://catalog.api"
+      - "ApiSettings:BasketUrl=http://basket.api"
+      - "ApiSettings:OrderingUrl=http://ordering.api"
+    ports:
+      - "8005:80"
+    depends_on:
+      - catalog.api
+      - basket.api
+      - ordering.api
+    networks:
+      - catalog-network
+      - basket-network
+      - discount-network
+      - ordering-network
+      - frontend-network
+
+
+  aspnetrunbasics6:
+    container_name: webfrontend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:GatewayAddress=http://ocelotapigw"
+    ports:
+      - "8006:80"
+    depends_on:
+      - ocelotapigw
+      - catalog.api
+      - basket.api
+      - discount.api
+      - ordering.api
+    networks:
+      - frontend-network
 
