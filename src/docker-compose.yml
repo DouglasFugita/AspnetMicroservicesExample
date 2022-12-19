@@ -102,7 +102,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     ports:
-      - "8000:80"
+# Acesso direto removido - Utilizar API atraves do OcelotApiGw
+#      - "8000:80"
+       - "80"
     depends_on:
       - catalogdb
     build:
@@ -120,7 +122,9 @@ services:
       - "GrpcSettings:DiscountUrl=http://discount.grpc"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
-      - "8001:80"	  
+# Acesso direto removido - Utilizar API atraves do OcelotApiGw
+#      - "8001:80"
+      - "80"	  
     depends_on:
       - basketdb
     build:
@@ -136,7 +140,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
     ports:
-      - "8002:80"	  
+# Acesso direto removido - Utilizar API atraves do OcelotApiGw
+#      - "8002:80"
+      - "80"	  
     depends_on:
       - discountdb
     build:
@@ -169,7 +175,9 @@ services:
       - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
-      - "8004:80"
+# Acesso direto removido - Utilizar API atraves do OcelotApiGw
+#      - "8004:80"
+      - "80"
     depends_on:
       - orderdb
     build:
@@ -186,6 +194,9 @@ services:
       dockerfile: ApiGateways/OcelotApiGw/Dockerfile
     networks:
       - catalog-network
+      - basket-network
+      - discount-network
+      - ordering-network
 
 volumes:
   mongo_data:
