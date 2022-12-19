@@ -181,10 +181,11 @@ services:
 
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
-    container_name: ocelot.apigw
     build:
       context: .
       dockerfile: ApiGateways/OcelotApiGw/Dockerfile
+    networks:
+      - catalog-network
 
 volumes:
   mongo_data:

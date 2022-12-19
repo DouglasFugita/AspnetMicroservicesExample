@@ -32,19 +32,21 @@ Gerenciamento dos cupons de desconto.
 - IP: localhost:8003
 
 ## Ordering.API
-[ ] CQRS utilizando MediatR, FluentValidation e AutoMapper
-[ ] ORM: Entity Framework
-[ ] DB: SQLServer
-[ ] Consumir da fila do RabbitMQ
+[x] CQRS utilizando MediatR, FluentValidation e AutoMapper
+[x] ORM: Entity Framework
+[x] DB: SQLServer
+[x] Consumir da fila do RabbitMQ
 
 ## Fila
-[ ] RabbitMQ
-[ ] MassTransit
+[x] RabbitMQ
+[x] MassTransit
 [ ] CloudAMQP
+
+## Api Gateway
+[ ] Ocelot
 
 
 [ ] Polly
-[ ] Ocelot
 
 [ ] ELK
 [ ] Serilog
@@ -54,6 +56,7 @@ Gerenciamento dos cupons de desconto.
 ## IPs:
 Portainer - http://localhost:9000/
 PgAdmin - http://localhost:5050/
+ApiGateway: http://localhost:5010
 
 
 ## Melhorias
