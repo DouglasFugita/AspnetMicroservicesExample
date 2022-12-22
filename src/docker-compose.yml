@@ -103,23 +103,9 @@ services:
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
-    container_name: basket.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "CacheSettings:ConnectionString=basketdb:6379"
-      - "GrpcSettings:DiscountUrl=http://discount.grpc"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
-    ports:
-# Acesso direto removido - Utilizar API atraves do OcelotApiGw
-#      - "8001:80"
-      - "80"	  
-    depends_on:
-      - basketdb
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
-    networks:
-      - basket-network
 
   discount.api:
     image: ${DOCKER_REGISTRY-}discountapi
