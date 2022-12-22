@@ -8,6 +8,21 @@ services:
         - "5672:5672"
         - "15672:15672"
 
+  catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    ports:
+      # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+      # - "8000:80"
+       - "80"
+    depends_on:
+      - catalogdb
+    networks:
+      - catalog-network
+      - elastic-network
+
   ocelotapigw:
     container_name: ocelotapigw
     environment:
@@ -25,7 +40,7 @@ services:
       - discount-network
       - ordering-network
       - frontend-network
-
+      - elastic-network
 
   shopping.aggregator:
     container_name: shopping.agg
@@ -46,6 +61,7 @@ services:
       - discount-network
       - ordering-network
       - frontend-network
+      - elastic-network
 
   aspnetrunbasics6:
     container_name: webfrontend
