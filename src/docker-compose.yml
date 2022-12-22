@@ -109,37 +109,16 @@ services:
 
   discount.api:
     image: ${DOCKER_REGISTRY-}discountapi
-    container_name: discount.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
-    ports:
-# Acesso direto removido - Utilizar API atraves do OcelotApiGw
-#      - "8002:80"
-      - "80"	  
-    depends_on:
-      - discountdb
     build:
       context: .
       dockerfile: Services/Discount/Discount.API/Dockerfile
-    networks:
-      - discount-network
 
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discountgrpc
-    container_name: discount.grpc
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "8003:80"
-    depends_on:
-      - discountdb
     build:
       context: .
       dockerfile: Services/Discount/Discount.gRPC/Dockerfile
-    networks:
-      - basket-network
-      - discount-network
+
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi

@@ -1,6 +1,8 @@
+using Common.Logging;
 using Discount.gRPC.Repositories;
 using Discount.Grpc.Services;
 using Npgsql;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddGrpc();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
+builder.Host.UseSerilog(SeriLogger.Configure);
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

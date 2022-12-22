@@ -1,7 +1,9 @@
+using Common.Logging;
 using Discount.API.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
+builder.Host.UseSerilog(SeriLogger.Configure);
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
