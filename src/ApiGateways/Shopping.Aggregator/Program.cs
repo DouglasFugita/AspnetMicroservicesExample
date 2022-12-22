@@ -1,3 +1,5 @@
+using Common.Logging;
+using Serilog;
 using Shopping.Aggregator.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,17 +11,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<LoggingDelegatingHandler>();
+
 builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
-    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:CatalogUrl"))
-);
-
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:CatalogUrl")))
+    .AddHttpMessageHandler<LoggingDelegatingHandler>();
 builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
-    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:BasketUrl"))
-);
-
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:BasketUrl")))
+    .AddHttpMessageHandler<LoggingDelegatingHandler>(); 
 builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
-    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:OrderingUrl"))
-);
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:OrderingUrl")))
+    .AddHttpMessageHandler<LoggingDelegatingHandler>();
+
+builder.Host.UseSerilog(SeriLogger.Configure);
 
 var app = builder.Build();
 
