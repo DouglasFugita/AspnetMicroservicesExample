@@ -15,7 +15,7 @@ Servico responsavel por lidar com as informacoes de produto.
 Armazenamento dos dados de carrinho de compra em Cache.
 [x] Cache: Redis
 [x] Consumir serviço gRPC Discount
-[ ] Publicar na fila utilizando MassTransit e RabbitMQ
+[x] Publicar na fila utilizando MassTransit e RabbitMQ
 - IP: localhost:8001
 
 ## Discount.API
@@ -56,7 +56,6 @@ Gerenciamento dos cupons de desconto.
 [x] Serilog
 [ ] HealthChecks
 [ ] Watchdog
-
 
 
 [ ] Polly
