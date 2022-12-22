@@ -68,6 +68,22 @@ services:
       - discount-network
       - elastic-network
 
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    ports:
+      # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+      # - "8004:80"
+      - "80"
+    depends_on:
+      - orderdb
+    networks:
+      - ordering-network
+      - elastic-network
+
   ocelotapigw:
     container_name: ocelotapigw
     environment:

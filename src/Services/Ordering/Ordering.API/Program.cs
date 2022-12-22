@@ -1,3 +1,4 @@
+using Common.Logging;
 using EventBus.Messages.Common;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Ordering.API.EventConsumer;
 using Ordering.Application;
 using Ordering.Infra;
 using Ordering.Infra.Persistence;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +40,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Host.UseSerilog(SeriLogger.Configure);
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

@@ -122,23 +122,9 @@ services:
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi
-    container_name: ordering.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
-    ports:
-# Acesso direto removido - Utilizar API atraves do OcelotApiGw
-#      - "8004:80"
-      - "80"
-    depends_on:
-      - orderdb
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
-    networks:
-      - ordering-network
-
 
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
