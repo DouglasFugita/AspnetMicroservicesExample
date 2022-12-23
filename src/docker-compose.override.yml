@@ -32,8 +32,9 @@ services:
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      # - "8001:80"
-      - "80"	  
+      # - "80"	  
+      - "8001:80"
+
     depends_on:
       - basketdb
     networks:

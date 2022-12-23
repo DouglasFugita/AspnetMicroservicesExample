@@ -47,7 +47,6 @@ services:
     networks:
       - discount-network
 
-
   basketdb:
     image: redis:alpine
     container_name: basketdb
@@ -118,7 +117,6 @@ services:
     build:
       context: .
       dockerfile: Services/Discount/Discount.gRPC/Dockerfile
-
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi

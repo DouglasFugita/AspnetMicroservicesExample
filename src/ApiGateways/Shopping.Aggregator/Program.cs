@@ -1,4 +1,6 @@
 using Common.Logging;
+using Common.Resilience;
+using Polly;
 using Serilog;
 using Shopping.Aggregator.Services;
 
@@ -16,9 +18,12 @@ builder.Services.AddTransient<LoggingDelegatingHandler>();
 builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:CatalogUrl")))
     .AddHttpMessageHandler<LoggingDelegatingHandler>();
+
 builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:BasketUrl")))
-    .AddHttpMessageHandler<LoggingDelegatingHandler>(); 
+    .AddHttpMessageHandler<LoggingDelegatingHandler>()
+    .AddPolicyHandler(RetryExtensions.CreatePolicy(2));
+
 builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:OrderingUrl")))
     .AddHttpMessageHandler<LoggingDelegatingHandler>();
