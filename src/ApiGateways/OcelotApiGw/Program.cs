@@ -24,7 +24,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapHealthChecks("/healthz");
+app.MapHealthChecks("/hc");
 
 
 var conf = new OcelotPipelineConfiguration()

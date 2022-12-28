@@ -1,5 +1,8 @@
 using AspnetRunBasics6.Services;
 using Common.Logging;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
 using System.Reflection;
 
@@ -19,6 +22,8 @@ builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")))
     .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
+builder.Services.AddHealthChecks()
+    .AddUrlGroup(new Uri($"{builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")}"), "Ocelot Gateway API", HealthStatus.Unhealthy);
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 var app = builder.Build();
@@ -35,5 +40,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
