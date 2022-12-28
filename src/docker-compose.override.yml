@@ -15,8 +15,8 @@ services:
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      # - "8000:80"
-       - "80"
+       - "8000:80"
+      # - "80"
     depends_on:
       - catalogdb
     networks:
