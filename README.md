@@ -49,16 +49,17 @@ Gerenciamento dos cupons de desconto.
 
 ## BFF
 - [x] Shopping.Aggregator - Consumindo Basket, Ordering e Catalog
+- [x] Polly
 
 ## Observability
 - [x] ElasticSearch
 - [x] Kibana
 - [x] Serilog
-- [ ] HealthChecks
-- [ ] Watchdog
+- [x] HealthChecks
+- [x] Watchdog
 
 
-- [ ] Polly
+
 
 ## IPs:
 Portainer - http://localhost:9000/
@@ -66,6 +67,7 @@ PgAdmin - http://localhost:5050/
 ApiGateway: http://localhost:8010
 FrontEnd: http://localhost:8006
 Kibana: http://localhost:5601/app/home
+Watchdog: http://localhost:8007/
 
 ## Melhorias
 [ ]

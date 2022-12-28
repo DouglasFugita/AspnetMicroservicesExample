@@ -39,7 +39,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/hc", new HealthCheckOptions()
 {
-    Predicate= _ => true,
+    Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 

@@ -15,8 +15,8 @@ services:
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-       - "8000:80"
-      # - "80"
+      # - "8000:80"
+      - "80"
     depends_on:
       - catalogdb
     networks:
@@ -32,8 +32,8 @@ services:
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      # - "80"	  
-      - "8001:80"
+      - "80"	  
+      # - "8001:80"
 
     depends_on:
       - basketdb
@@ -48,8 +48,8 @@ services:
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
     ports:
     # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      - "8002:80"
-    #  - "80"	  
+    #  - "8002:80"
+      - "80"	  
     depends_on:
       - discountdb
     networks:
@@ -77,8 +77,8 @@ services:
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      - "8004:80"
-      # - "80"
+      # - "8004:80"
+      - "80"
     depends_on:
       - orderdb
     networks:
@@ -168,3 +168,28 @@ services:
       - 5601:5601
     networks:
       - elastic-network
+
+  webstatus:
+    container_name: webstatus
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - HealthChecksUI__HealthChecks__0__Name=Catalog Health Check
+      - HealthChecksUI__HealthChecks__0__Uri=http://catalog.api/hc
+      - HealthChecksUI__HealthChecks__1__Name=Basket Health Check
+      - HealthChecksUI__HealthChecks__1__Uri=http://basket.api/hc
+      - HealthChecksUI__HealthChecks__2__Name=Discount Health Check
+      - HealthChecksUI__HealthChecks__2__Uri=http://discount.api/hc
+      - HealthChecksUI__HealthChecks__3__Name=Ordering Health Check
+      - HealthChecksUI__HealthChecks__3__Uri=http://ordering.api/hc
+      - HealthChecksUI__HealthChecks__4__Name=Shopping Aggregator Health Check
+      - HealthChecksUI__HealthChecks__4__Uri=http://shopping.agg/hc
+      - HealthChecksUI__HealthChecks__5__Name=AspnetRunBasics WebMVC Health Check
+      - HealthChecksUI__HealthChecks__5__Uri=http://webfrontend/hc
+    ports:
+      - 8007:80
+    networks:
+      - frontend-network
+      - catalog-network
+      - basket-network
+      - discount-network
+      - ordering-network

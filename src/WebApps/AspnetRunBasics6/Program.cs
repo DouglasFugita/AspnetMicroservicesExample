@@ -23,7 +23,7 @@ builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
     .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
 builder.Services.AddHealthChecks()
-    .AddUrlGroup(new Uri($"{builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")}"), "Ocelot Gateway API", HealthStatus.Unhealthy);
+    .AddUrlGroup(new Uri($"{builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")}/Catalog"), "Ocelot Gateway API", HealthStatus.Unhealthy);
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 var app = builder.Build();
