@@ -48,8 +48,8 @@ services:
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
     ports:
     # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-    # - "8002:80"
-      - "80"	  
+      - "8002:80"
+    #  - "80"	  
     depends_on:
       - discountdb
     networks:
@@ -77,8 +77,8 @@ services:
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      # - "8004:80"
-      - "80"
+      - "8004:80"
+      # - "80"
     depends_on:
       - orderdb
     networks:

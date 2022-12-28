@@ -1,7 +1,10 @@
 using Common.Logging;
 using EventBus.Messages.Common;
+using HealthChecks.UI.Client;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Ordering.API.EventConsumer;
 using Ordering.Application;
@@ -41,6 +44,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<OrderContext>()
+    .AddRabbitMQ(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"), null, "Basket RabbitMq Health", HealthStatus.Degraded);
+
 builder.Host.UseSerilog(SeriLogger.Configure);
 var app = builder.Build();
 
@@ -63,5 +70,12 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
 
 app.Run();
