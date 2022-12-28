@@ -22,7 +22,7 @@ builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
 builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:BasketUrl")))
     .AddHttpMessageHandler<LoggingDelegatingHandler>()
-    .AddPolicyHandler(RetryExtensions.CreatePolicy(2));
+    .AddPolicyWrapperAsyncHandler();
 
 builder.Services.AddHttpClient<IOrderService, OrderService>(c =>
     c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:OrderingUrl")))
