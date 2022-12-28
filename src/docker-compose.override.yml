@@ -13,10 +13,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
-    ports:
+    expose:
+      - 80
+    #ports:
       # Acesso direto removido - Utilizar API atraves do OcelotApiGw
       # - "8000:80"
-      - "80"
     depends_on:
       - catalogdb
     networks:
@@ -30,9 +31,10 @@ services:
       - "CacheSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountUrl=http://discount.grpc"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
-    ports:
-      # Acesso direto removido - Utilizar API atraves do OcelotApiGw
-      - "80"	  
+    expose:
+      - 80
+    # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+    # ports:
       # - "8001:80"
 
     depends_on:
@@ -46,8 +48,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
-    ports:
+    expose:
+      - 80
     # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+    # ports:
     #  - "8002:80"
       - "80"	  
     depends_on:
@@ -60,8 +64,11 @@ services:
     container_name: discount.grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "8003:80"
+    expose:
+      - 80
+    # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+    # ports:
+    #  - "8003:80"
     depends_on:
       - discountdb
     networks:
@@ -75,10 +82,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SenhaBD965;Trust Server Certificate=true;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
-    ports:
-      # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+    expose:
+      - 80
+    # Acesso direto removido - Utilizar API atraves do OcelotApiGw
+    # ports:
       # - "8004:80"
-      - "80"
     depends_on:
       - orderdb
     networks:
