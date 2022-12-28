@@ -2,7 +2,12 @@ using Basket.API.gRPCServices;
 using Basket.API.Repositories;
 using Common.Logging;
 using Discount.gRPC.Protos;
+using HealthChecks.UI.Client;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
 using System.Reflection;
 
@@ -33,6 +38,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks()
+    .AddRedis(builder.Configuration.GetValue<string>("CacheSettings:ConnectionString"), "Basket Redis Health", HealthStatus.Degraded)
+    .AddRabbitMQ(builder.Configuration.GetValue<string>("EventBusSettings:HostAddress"), null, "Basket RabbitMq Health", HealthStatus.Degraded);
+
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 var app = builder.Build();
@@ -47,5 +56,10 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/hc", new HealthCheckOptions() { 
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
